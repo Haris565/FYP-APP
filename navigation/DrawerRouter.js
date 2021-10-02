@@ -27,6 +27,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {loadUser} from '../redux/actions/auth'
 import {register} from '../redux/actions/auth';
+import ChatScreen from '../Screens/ChatScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -94,8 +95,25 @@ function DrawerRouter() {
                 ),
                 }}
             />
-            
+            <Drawer.Screen name="Messages" component={ChatScreen} 
+                options={{
+                drawerIcon: ({focused, size}) => (
+                    <Feather name="user" size={24} color={focused ? COLORS.white : COLORS.primary} />
+                ),
+                }}
+            />
+
+            <Drawer.Screen name="Logout" component={Profile} 
+                options={{
+                drawerIcon: ({focused, size}) => (
+                    <Feather name="user" size={24} color={focused ? COLORS.white : COLORS.primary} />
+                ),
+                }}
+            />
+
             </Drawer.Navigator>
+
+            
 
         </NavigationContainer>):
         

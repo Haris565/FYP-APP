@@ -4,21 +4,28 @@ import COLORS from "../consts/color";
 import BookingList from '../Components/BookingList'
 import {Header} from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons'; 
+import axios from 'axios'
+
+
+const Left = ({navigation}) =>{
+    return(
+        <TouchableOpacity onPress={()=> navigation.goBack()}>
+            <AntDesign name="arrowleft" size={24} color="white" />
+        </TouchableOpacity>)
+}
+
 
 const Appointments = ({navigation}) => {
+
+        const [appointments, setappointments] = useState()
         const [search, setsearch] = useState({
         searchByName:true,
         searchByLoc:false
     })
 
-
-    const Left = ({navigation}) =>{
-        return(
-            <TouchableOpacity onPress={()=> navigation.goBack()}>
-                <AntDesign name="arrowleft" size={24} color="white" />
-            </TouchableOpacity>)
-    }
-
+    useEffect(() => {
+      
+    }, [input])
     return (
         <View>
         <Header backgroundColor={COLORS.primary} containerStyle={{height:100}}

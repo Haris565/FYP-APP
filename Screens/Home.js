@@ -21,7 +21,8 @@ const Home = ({navigation }) => {
 
     const dispatch = useDispatch()
     const salon = useSelector(state => state.salon);
-    console.log("State", salon)
+    const user = useSelector(state => state.auth.user)
+    console.log("user", user)
 
     useEffect(() => {
         // (async function() {
@@ -35,7 +36,7 @@ const Home = ({navigation }) => {
         // ();
         dispatch(fetchSalons())
     }, []);
-    if(salon?.loading){
+    if(salon?.loading || !user){
         return(
             <View style={[styles.container, styles.horizontal]}>
                  <ActivityIndicator size="large" color={COLORS.primary} />

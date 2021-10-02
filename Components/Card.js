@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 import COLORS from '../consts/color'
 import { Entypo, AntDesign } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native'
+import { useSelector } from 'react-redux';
 
 
 
@@ -12,7 +13,11 @@ const {width} = Dimensions.get('screen')
 
 
 
+
 const Card = ({items}) => {
+
+    const user = useSelector(state => state.auth.user)
+    console.log("user", user)
     console.log("items", items)
     const navigation = useNavigation();
     return (
@@ -39,7 +44,14 @@ const Card = ({items}) => {
                         </Text>
                     </View>
                     <TouchableOpacity style={{}} onPress={()=>{}}>
+                        {user.favorites.includes(items.item._id)? 
+                        
+                        <Entypo name="heart" size={30} color={COLORS.primary} />
+                        :
                         <Entypo name="heart-outlined" size={30} color={COLORS.primary}  />
+                    
+                        }
+                        
                     </TouchableOpacity>
                     
                 </View> 

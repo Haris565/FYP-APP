@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-
 import { StyleSheet, Text, View, ScrollView, ImageBackground, TouchableOpacity, FlatList} from 'react-native'
 import {StatusBar} from 'expo-status-bar'
 import { useRoute } from '@react-navigation/native';
@@ -13,6 +12,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment'
 import CheckBox from '../Components/CheckBox';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from "axios"
 
 const SalonDetail = ({route, navigation}) => {
 
@@ -23,6 +23,9 @@ const SalonDetail = ({route, navigation}) => {
     const [service, setservice] = useState([])
     const [checked, setchecked] = useState(false)
     const [date, setdate] = useState('')
+
+
+    const [loading, setloading] = useState(false)
 
 
     const salons = useSelector(state => state.salon.salons)
@@ -87,8 +90,14 @@ const SalonDetail = ({route, navigation}) => {
         return dates;
     }
 
-    const submitHandler =()=>{
-        console.log(date, selectedSalon._id, service )
+    const submitHandler = async ()=>{
+        let booking ={
+            appointment_date:date,
+            services:service,
+            salon_id: selectedSalon.user
+         }
+        const response = await axios.post("http://192.168.0.108:5000/api/user/booking", booking)
+        console.log("api call", response.data)
     }
     
     useEffect(() => {
