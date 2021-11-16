@@ -7,6 +7,7 @@ import { Ionicons, MaterialIcons, FontAwesome5, Entypo, AntDesign, EvilIcons } f
 import SearchCard from '../Components/SearchCard';
 import { useSelector, useDispatch } from 'react-redux';
 import MapScreen from './MapScreen';
+import { Dimensions } from 'react-native';
 
 
 const SearchScreen = ({navigation}) => {
@@ -17,6 +18,8 @@ const SearchScreen = ({navigation}) => {
         searchByName:true,
         searchByLoc:false
     })
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
     const salons = useSelector(state => state.salon.salons)
 
     const searchHandler = () => {
@@ -144,12 +147,19 @@ const SearchScreen = ({navigation}) => {
                             //  data={selected}
                             //  renderItem={()=>console.log("Hllo")}/> 
                             <SearchCard item={selected} />
-                            : 
-                            <Text style={{ flexDirection:'row',justifyContent:"center", color:COLORS.primary, alignItems:"center"}}>No salon searched yet</Text>
+                            :
+                            <View style={{flex:1, justifyContent:"center", alignItems:"center", top:windowHeight/3 }}>
+                                <MaterialIcons name="search-off" size={70} color={COLORS.primary} />
+                                <Text style={{fontSize:16, fontWeight:'bold', color:COLORS.primary}}>You didn't search anything</Text>
+                            </View>
+                            
                             : 
                             selected ?    <SearchCard item={selected} />
                             : 
-                            <Text style={{ flexDirection:'row',justifyContent:"center", color:COLORS.primary, alignItems:"center"}}>No salon searched yet</Text>
+                            <View style={{flex:1, justifyContent:"center", alignItems:"center",  top:windowHeight/3 }}>
+                                <MaterialIcons name="search-off" size={70} color={COLORS.primary} />
+                                <Text style={{fontSize:16, fontWeight:'bold', color:COLORS.primary}}>You didn't search anything</Text>
+                            </View>
                            
                         }
                 

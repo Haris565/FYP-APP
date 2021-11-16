@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 import * as Location from 'expo-location';
 import MapView,{Marker,Polyline} from 'react-native-maps';
 import { Entypo } from '@expo/vector-icons';
-
+import { mapStyle } from '../consts/mapStyle';
+import COLORS from '../consts/color';
 
 
 
@@ -26,8 +27,7 @@ const Map = ({coords}) => {
       setInitial({latitude:coords[0] , longitude:coords[1],latitudeDelta:LATITUDE_DELTA,longitudeDelta:LONGITUDE_DELTA});
       setMarker({latitude:coords[0] , longitude:coords[1]})
     }, [])
-
-
+    
 
   
     // useEffect(() => {
@@ -75,13 +75,14 @@ const Map = ({coords}) => {
         {initial ? 
             <MapView style={styles.map}
     initialRegion={initial}
+    customMapStyle={mapStyle}
     >
     <Marker
         coordinate={marker}
         resizeMethod="contain"
         >
-<Entypo name="location-pin" size={24} color="black" />
-        </Marker>
+          <Entypo name="location-pin" size={30} color={COLORS.primary} />
+    </Marker>
     
     
     

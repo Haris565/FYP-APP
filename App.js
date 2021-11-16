@@ -14,6 +14,7 @@ import { AntDesign, Feather, Foundation } from '@expo/vector-icons';
 import setAuthToken from "./util/setAuthToken";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerRouter from "./navigation/DrawerRouter";
+import { StripeProvider } from "@stripe/stripe-react-native";
 
 
 //redux
@@ -111,10 +112,13 @@ import {register} from './redux/actions/auth';
 
 
     // </NavigationContainer> 
+    
 
     <Provider store={store}>
+         <StripeProvider publishableKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
 
-      <DrawerRouter />
+              <DrawerRouter />
+      </StripeProvider>
 
     </Provider>
     

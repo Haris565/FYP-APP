@@ -11,6 +11,7 @@ import SearchScreen from '../Screens/SearchScreen';
 import MapScreen from '../Screens/MapScreen';
 import { Ionicons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import SalonDetail from '../Screens/SalonDetail'
+import ReviewAndRating from './../Screens/ReviewAndRating';
 
 
 
@@ -90,6 +91,21 @@ const StackRoute = ({navigation}) => {
         />
 
         <Stack.Screen name="MapScreen" component={MapScreen}
+          options={{
+          headerStyle:{backgroundColor: COLORS.primary},
+          headerTintColor:COLORS.white,
+          headerShown: true,
+          title:'',
+          headerLeft:(() =>
+            <TouchableOpacity >
+                <MaterialIcons name="arrow-back-ios" size={28} color="white" style={{marginLeft:10}} onPress={()=>{navigation.goBack()}} />
+            </TouchableOpacity>),
+
+          }}
+        />
+
+
+      <Stack.Screen name="Review" component={ReviewAndRating}
           options={{
           headerStyle:{backgroundColor: COLORS.primary},
           headerTintColor:COLORS.white,

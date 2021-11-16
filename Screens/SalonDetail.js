@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { StyleSheet, Text, View, ScrollView, ImageBackground, TouchableOpacity, FlatList} from 'react-native'
+import { StyleSheet, Text, View, ScrollView, ImageBackground, TouchableOpacity, FlatList, Modal, TouchableHighlight, ActivityIndicator} from 'react-native'
 import {StatusBar} from 'expo-status-bar'
 import { useRoute } from '@react-navigation/native';
 import Stars from 'react-native-stars';
@@ -13,6 +13,10 @@ import moment from 'moment'
 import CheckBox from '../Components/CheckBox';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios"
+import { local_ip } from '../consts/ip';
+import StripePayment from './../Components/StripePayment';
+import { Pressable } from 'react-native';
+
 
 const SalonDetail = ({route, navigation}) => {
 
@@ -26,6 +30,7 @@ const SalonDetail = ({route, navigation}) => {
 
 
     const [loading, setloading] = useState(false)
+    const [showModal, setshowModal] = useState(false)
 
 
     const salons = useSelector(state => state.salon.salons)
@@ -91,13 +96,17 @@ const SalonDetail = ({route, navigation}) => {
     }
 
     const submitHandler = async ()=>{
+        setloading(true)
+        console.log(service)
         let booking ={
             appointment_date:date,
             services:service,
             salon_id: selectedSalon.user
          }
-        const response = await axios.post("http://192.168.0.108:5000/api/user/booking", booking)
+        const response = await axios.post(`http://${local_ip}:5000/api/user/booking`, booking)
         console.log("api call", response.data)
+        setloading(false)
+        setshowModal(true)
     }
     
     useEffect(() => {
@@ -116,6 +125,31 @@ const SalonDetail = ({route, navigation}) => {
             
         >
             <StatusBar barStyle='light-content'  translucent= {isVisible ? false : true } />
+            <Modal
+                animationType="slide"
+                // transparent={true}
+                visible={showModal}
+                presentationStyle='fullScreen'
+                //onRequestClose={() => {
+                // Alert.alert('Modal has been closed.');
+                // }}
+            >
+                   <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                                <Ionicons name="checkmark-done" size={30} color={COLORS.primary} />
+                                <Text style={styles.modalText}>Your appointment request has been forworded</Text>
+
+                                <Pressable
+                                    style={{ ...styles.openButton, backgroundColor: COLORS.primary }}
+                                    onPress={() => {
+                                    setshowModal(false);
+                                    navigation.navigate("Home")
+                                }}>
+                                    <Text style={styles.textStyle}>Ok</Text>
+                                </Pressable>
+                        </View>
+                    </View>
+                </Modal>
 
             <ImageBackground style={styles.headerImage} source={{ uri: `${selectedSalon.image}`}} >
                 <View style={styles.header}>
@@ -176,10 +210,12 @@ const SalonDetail = ({route, navigation}) => {
                          3.0
                     </Text>
                 </View>
-
-                <Text style={{fontWeight:'bold', color: COLORS.light, fontSize: 16,}}>
-                    351 reviws
-                </Text>
+                <Pressable onPress={()=>navigation.navigate('Review')}>
+                    <Text style={{fontWeight:'bold', color: COLORS.light, fontSize: 16, textDecorationLine: 'underline' }}>
+                        351 reviws
+                    </Text>
+                </Pressable>
+            
                
             </View>
 
@@ -190,7 +226,7 @@ const SalonDetail = ({route, navigation}) => {
             </View>
 
        
-
+            
             <View style={{}}>
                 {selectedSalon?.services?.map((item,index)=>{
                    return(
@@ -244,12 +280,15 @@ const SalonDetail = ({route, navigation}) => {
                         </TouchableOpacity>
                     )
                 })}
+                
             </ScrollView>
 
             <TouchableOpacity style={styles.btnPrimary} opacity={0.9} onPress={submitHandler} >
+                {loading ? <ActivityIndicator size="large" color={COLORS.white} /> :
                 <Text style={{color:COLORS.white, fontSize:16, fontWeight:'bold'}}>
                     BOOK NOW
                 </Text>
+                }
             </TouchableOpacity>
 
             {/* <BottomSheet
@@ -365,5 +404,42 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         paddingHorizontal:10,
         marginRight: 5,
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      },
+      openButton: {
+        backgroundColor: '#F194FF',
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+      },
+      textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+      },
+      modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
+        color:COLORS.primary
+      },
 })

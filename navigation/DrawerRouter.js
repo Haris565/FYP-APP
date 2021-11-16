@@ -14,7 +14,7 @@ import Favorite from '../Screens/Favorite'
 import StackRoute from './StackRoute';
 import StackAuth from './StackAuth';
 import DrawerContent from "./DrawerContent";
-import { AntDesign, Feather, Foundation } from '@expo/vector-icons';
+import { AntDesign, Feather, Foundation, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import setAuthToken from "../util/setAuthToken";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Notifications from '../Screens/Notifications'
@@ -28,6 +28,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {loadUser} from '../redux/actions/auth'
 import {register} from '../redux/actions/auth';
 import ChatScreen from '../Screens/ChatScreen';
+import Nearby from '../Screens/Nearby';
 
 
 const Drawer = createDrawerNavigator();
@@ -76,7 +77,8 @@ function DrawerRouter() {
             <Drawer.Screen name="Appointments" component={Appointments} 
                     options={{
                     drawerIcon: ({focused, size}) => (
-                    <Foundation name="page-multiple" size={24} color={focused ? COLORS.white : COLORS.primary}/>
+                    // <Foundation name="page-multiple" size={24} color={focused ? COLORS.white : COLORS.primary}/>
+                    <MaterialIcons name="date-range" size={24} color="black"  color={focused ? COLORS.white : COLORS.primary} />
                 ),
                 }}
             />
@@ -88,6 +90,15 @@ function DrawerRouter() {
                 }}
             />
 
+            <Drawer.Screen name="Messages" component={ChatScreen} 
+                options={{
+                drawerIcon: ({focused, size}) => (
+                    <Feather name="message-square" size={24} color={focused ? COLORS.white : COLORS.primary} />
+                
+                ),
+                }}
+            />
+
             <Drawer.Screen name="Profile" component={Profile} 
                 options={{
                 drawerIcon: ({focused, size}) => (
@@ -95,18 +106,20 @@ function DrawerRouter() {
                 ),
                 }}
             />
-            <Drawer.Screen name="Messages" component={ChatScreen} 
+  
+            <Drawer.Screen name="Nearby" component={Nearby} 
                 options={{
                 drawerIcon: ({focused, size}) => (
-                    <Feather name="user" size={24} color={focused ? COLORS.white : COLORS.primary} />
+                    <MaterialCommunityIcons name="google-nearby" size={24} color={focused ? COLORS.white : COLORS.primary} />
+                    // <Feather name="user" size={24}  />
                 ),
                 }}
             />
-
             <Drawer.Screen name="Logout" component={Profile} 
                 options={{
                 drawerIcon: ({focused, size}) => (
-                    <Feather name="user" size={24} color={focused ? COLORS.white : COLORS.primary} />
+                    // <Feather name="user" size={24}  />
+                    <AntDesign name="logout" size={24} color={focused ? COLORS.white : COLORS.primary} />
                 ),
                 }}
             />

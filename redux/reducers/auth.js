@@ -54,7 +54,7 @@ export default function (state=initialState , action){
             return {
                 ...state,
                 isAuthenticated:false,
-                loading:true,
+                loading:false,
                 token:null
             }
         case LOGIN_ATTEMPT:

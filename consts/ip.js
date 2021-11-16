@@ -1,0 +1,1 @@
+export const local_ip = "192.168.0.108"

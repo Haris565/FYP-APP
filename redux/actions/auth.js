@@ -2,7 +2,7 @@ import axios from 'axios';
 import {REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_ATTEMPT,  USER_LOADED, AUTH_ERROR , LOGIN_SUCCESS, LOGIN_FAIL, LOGIN_ATTEMPT} from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import setAuthToken from "../../util/setAuthToken"
-
+import {local_ip} from "../../consts/ip"
 
 
 
@@ -119,7 +119,7 @@ export const loadUser = () => async dispatch =>{
    
         const value = await AsyncStorage.getItem('token')
         setAuthToken(value)
-        const res = await axios.get("http://192.168.0.108:5000/api/user");
+        const res = await axios.get(`http://${local_ip}:5000/api/user`);
         console.log(res)
         
         dispatch({
@@ -157,12 +157,13 @@ export const register =  (name, email, password, phone)=> async dispatch=>{
         type:REGISTER_ATTEMPT,
     }) 
     
-    const res = await axios.post('http://192.168.0.108:5000/api/user/register', user);
+    const res = await axios.post(`http://${local_ip}:5000/api/user/register`, user);
     dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data
     })
     console.log("api call sucessfull",res.data.token);
+    dispatch(loadUser())
    }
    catch(err){
     dispatch({
@@ -185,7 +186,7 @@ export const login = (email, password)=> async (dispatch) =>{
         dispatch({
             type:LOGIN_ATTEMPT,
         }) 
-        const res = await axios.post('http://192.168.0.108:5000/api/user/login', user);
+        const res = await axios.post(`http://${local_ip}:5000/api/user/login`, user);
         await AsyncStorage.setItem('token', res.data.token)
        
         dispatch({

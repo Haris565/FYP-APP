@@ -1,5 +1,4 @@
-import {FETCH_SUCCESS, FETCH_FAIL} from "../actions/types";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {FETCH_SUCCESS, FETCH_FAIL, FETCH_ACCEPTED_FAIL, FETCH_ACCEPTED_SUCCESS, FETCH_PREVIOUS_SUCCESS, FETCH_PREVIOUS_FAIL} from "../actions/types";
 
 
 
@@ -15,7 +14,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const initialState = {
     loading:true,
     salons:null,
-    error:null
+    error:null,
+    accepted:null,
+    previous:null
 }
 
 
@@ -31,8 +32,24 @@ export default function (state=initialState , action){
                 loading: false
                 
             }
+            case FETCH_ACCEPTED_SUCCESS:
+                return{
+                    ...state,
+                    loading: false,
+                    accepted:payload
+                    
+                }
+            case FETCH_PREVIOUS_SUCCESS:
+                return{
+                    ...state,
+                    loading: false,
+                    previous:payload
+                    
+                }
+            
         case FETCH_FAIL:
-           
+        case FETCH_ACCEPTED_FAIL:   
+        case FETCH_PREVIOUS_FAIL:
             return {
                 ...state,
                 loading:false,

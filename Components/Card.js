@@ -1,13 +1,13 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Dimensions } from 'react-native'
 import { Image } from 'react-native';
-import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import COLORS from '../consts/color'
 import { Entypo, AntDesign } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native'
-import { useSelector } from 'react-redux';
-
-
+import { useSelector, useDispatch } from 'react-redux';
+import axios from "axios"
+import { loadUser } from '../redux/actions/auth';
 
 const {width} = Dimensions.get('screen')
 
@@ -16,10 +16,26 @@ const {width} = Dimensions.get('screen')
 
 const Card = ({items}) => {
 
+    const [loading, setloading] = useState(false)
     const user = useSelector(state => state.auth.user)
+    const dispatch = useDispatch()
     console.log("user", user)
     console.log("items", items)
     const navigation = useNavigation();
+
+    const handleFavorite = async (profileId) => {
+
+        let data = {
+            profileId: profileId,
+            userId: user._id
+        }
+        setloading(true);
+        const res = await axios.post(`http://192.168.0.108:5000/api/user/addToFavorite`, data);
+        dispatch(loadUser())
+        console.log(res.data)
+        setloading(false)
+    }
+    
     return (
         <TouchableOpacity activeOpacity={1} style={styles.card} 
             onPress={()=>
@@ -43,8 +59,10 @@ const Card = ({items}) => {
                                 {items.item.description}
                         </Text>
                     </View>
-                    <TouchableOpacity style={{}} onPress={()=>{}}>
-                        {user.favorites.includes(items.item._id)? 
+                    <TouchableOpacity style={{}} onPress={()=>handleFavorite(items.item._id)}>
+
+
+                        { loading ?     <ActivityIndicator size="small" color={COLORS.primary} /> : user.favorites.includes(items.item._id)? 
                         
                         <Entypo name="heart" size={30} color={COLORS.primary} />
                         :

@@ -14,8 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios"
 import { fetchSalons } from '../redux/actions/salon';
-
-
+import { local_ip } from '../consts/ip';
 
 const Home = ({navigation }) => {
 
@@ -36,6 +35,7 @@ const Home = ({navigation }) => {
         // ();
         dispatch(fetchSalons())
     }, []);
+    
     if(salon?.loading || !user){
         return(
             <View style={[styles.container, styles.horizontal]}>
@@ -74,12 +74,12 @@ const Home = ({navigation }) => {
                     </View>
                 {/* </ImageBackground> */}
 
-            <TouchableOpacity activeOpacity={0.5} style={{marginTop: 30,}} onPress={()=>navigation.navigate('SearchScreen')} >
+            <TouchableOpacity activeOpacity={0.3} style={{marginTop: 30,}} onPress={()=>navigation.navigate('SearchScreen')} >
                 <View style={{flexDirection:'row', alignContent:'center' , alignItems:'center', marginHorizontal:20,
-                    paddingVertical:15, paddingHorizontal:20, borderRadius:30, backgroundColor:COLORS.gray
+                    paddingVertical:15, paddingHorizontal:20, borderRadius:10, backgroundColor:COLORS.primary, opacity:0.4
                 }}>
-                    <Ionicons name="search" size={20} color={COLORS.dark} style={{ marginRight:10 }} />
-                    <Text style={{fontSize:18, color:COLORS.light}}>Search</Text>
+                    <Ionicons name="search" size={20} color={COLORS.white} style={{ marginRight:10 }} />
+                    <Text style={{fontSize:18, color:COLORS.white}}>Search</Text>
                 </View>
             </TouchableOpacity>
 

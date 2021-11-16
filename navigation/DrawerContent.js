@@ -18,13 +18,13 @@ const DrawerContent = (props) => {
     return (
         
             <View>
-                <View style={{backgroundColor:COLORS.primary, height:height/4}}>
-                    <View style={{display:'flex',justifyContent:'flex-start', marginTop: 40, marginHorizontal:20,}}>
+                <View style={{backgroundColor:COLORS.primary, height:height/5}}>
+                    <View style={{ marginTop: 50, marginHorizontal:20, flexDirection:"row", alignItems:"center", }}>
                           <Avatar rounded size='large' titleStyle={{color:COLORS.primary}} containerStyle={{backgroundColor:COLORS.white, }}
                                 title='H'
                                 // source={{ uri: avatar_url }}
                             />
-                            <View style={{}}>
+                            <View style={{marginLeft:10}}>
                                 <Text style={{marginTop:10, color:COLORS.white, fontSize:18, fontWeight:'bold'}}>
                                     Haris
                                 </Text>

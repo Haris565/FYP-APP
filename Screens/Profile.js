@@ -21,13 +21,13 @@ const Profile = ({navigation}) => {
         <View style={{flex:1}}>
 
                <Header backgroundColor={COLORS.primary} containerStyle={{height:80}}
-                  leftComponent={ <Left navigation={navigation} />}
-                centerComponent={{ text: 'Profile', style: { color: '#fff', fontSize:18 } }}
+                    leftComponent={ <Left navigation={navigation} />}
+                    centerComponent={{ text: 'Profile', style: { color: '#fff', fontSize:18 } }}
             
                 />
 
             <ScrollView style={{}}>
-            <View style={{ justifyContent:'flex-start', alignItems:'center' , marginTop: 20,}}>
+            {/* <View style={{ justifyContent:'flex-start', alignItems:'center' , marginTop: 20,}}>
                 <Avatar
                     
                     rounded
@@ -42,79 +42,39 @@ const Profile = ({navigation}) => {
                      <AntDesign name="edit" size={30} color="white" />
                 </TouchableOpacity>
                
-            </View>
+            </View> */}
 
             <View style={{}}>
 
                 <View style={styles.inputContainer} >
-                        <Input
-                            
-                            inputContainerStyle={{borderBottomColor:COLORS.primary, margin:0}}
-                            containerStyle={{width:'90%'}}
-                            value={val}
-                            leftIcon={
-                                <Icon
-                                name='user'
-                                size={18}
-                                color={COLORS.primary}
-
-                                />
-                            }
-                        />
+                    <Text style={{}}>
+                        Name
+                    </Text>
+                    <TextInput value={"Haris"} placeholder="" underlineColorAndroid={false} onChangeText={()=>{}} style={styles.input} />
                 </View>
 
                 <View style={styles.inputContainer} >
-                    <Input
-                      
-                        inputContainerStyle={{borderBottomColor:COLORS.primary,}}
-                        containerStyle={{width:'90%'}}
-                        value={val}
-                        leftIcon={
-                            <Icon
-                            name='envelope'
-                            size={18}
-                            color={COLORS.primary}
-
-                            />
-                        }
-                    />
+                    <Text style={{}}>
+                        some text
+                    </Text>
+                    <TextInput value={"Haris"} placeholder="" underlineColorAndroid={false} onChangeText={()=>{}} />
                 </View>
                 
                 <View style={styles.inputContainer} >
-                    <Input
-                      
-                        inputContainerStyle={{borderBottomColor:COLORS.primary,}}
-                        containerStyle={{width:'90%'}}
-                        value={val}
-                        leftIcon={
-                            <Icon
-                            name='lock'
-                            size={18}
-                            color={COLORS.primary}
-
-                            />
-                        }
-                    />
+                    <Text style={{}}>
+                        some text
+                    </Text>
+                    <TextInput value={"Haris"} placeholder="" underlineColorAndroid={false} onChangeText={()=>{}} />
                 </View>
 
                 <View style={styles.inputContainer} >
-                    <Input
-                   
-                        inputContainerStyle={{borderBottomColor:COLORS.primary,}}
-                        containerStyle={{width:'90%'}}
-                        value={val}
-                        leftIcon={
-                            <Icon
-                            name='phone'
-                            size={18}
-                            color={COLORS.primary}
-
-                            />
-                        }
-                    />
+                    <Text style={{}}>
+                        some text
+                    </Text>
+                    <TextInput value={"Haris"} placeholder="" underlineColorAndroid={false} onChangeText={()=>{}} />
                 </View>
 
-                <View style={{ justifyContent:'center', alignItems:'center', marginBottom: 20,
+                <View style={{ justifyContent:'center', alignItems:'center', marginBottom: 20, flex:1
                 }}>
                         <TouchableOpacity style={styles.btnPrimary} activeOpacity={0.8}>
                                 <Text style={{color:'#fff', fontWeight: 'bold', fontSize: 18}}>Update</Text>
@@ -134,20 +94,21 @@ export default Profile
 
 const styles = StyleSheet.create({
     inputContainer: {
-        flexDirection: 'row', 
-        marginTop: 10,
-        justifyContent:'center',
-        alignItems:"center"
+        flexDirection: 'column', 
+        marginVertical: 10,
+        borderRadius:10,
+        backgroundColor:COLORS.gray,
+        marginHorizontal:20,
+        paddingHorizontal:20,
+        paddingVertical:30,
+        
     },
     input: {
-      color: COLORS.black,
-      paddingLeft: 30,
-      borderColor: COLORS.primary,
-      borderBottomWidth: 1,
-      width:'80%',
-      fontSize: 18,
-      marginTop: 10,
-      paddingVertical:10
+       flex:1,
+       borderWidth:2,
+       borderRadius:10,
+       paddingHorizontal:5,
+       paddingVertical:10
     },
     btnPrimary: {
         backgroundColor: COLORS.primary,
